@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="TrainOrder">
+
+	<resultMap id="result"
+		class="org.springframework.samples.jpetstore.domain.TrainOrder">
+		<result property="trainNumber" column="train_number"/>
+		<result property="seriaryNumber" column="seriary_number"/>
+		<result property="carNumber" column="car_number"/>
+		<result property="carMarque" column="car_marque"/>
+		<result property="carryWeight1" column="carry_weight1"/>
+		<result property="selfWeight1" column="self_weight1"/>
+		<result property="pastTime" column="past_time"/>
+		<result property="outFlag" column="outFlag"/>
+		<result property="badFlag" column="badFlag"/>
+		<result property="yearLevel2" column="year_level2"/>
+		<result property="monthLevel3" column="month_level3"/>
+		<result property="sn" column="sn"/>
+	</resultMap>
+
+	<resultMap id="resultYear"
+		class="org.springframework.samples.jpetstore.domain.TrainOrder">
+		<result property="yearLevel2" column="year_level2"/>
+	</resultMap>
+	
+	<select id="getCarnumberList" resultMap="result">
+		select * from trainOrder where train_number = #trainNumber#
+	</select>
+	
+	<select id="getYearList" resultClass="java.lang.String">
+		select DISTINCT year_level2 as yearLevel2 from trainOrder
+	</select>
+
+	<select id="getMonthList" resultClass="java.lang.String">
+		select DISTINCT month_level3 as monthLevel3 from trainOrder
+	</select>
+	
+	<select id="getTrainNumberList" resultClass="java.lang.String">
+		select DISTINCT train_number from trainOrder where year_level2 = #yearLevel2# and month_level3 = #monthLevel3# 
+	</select>
+
+</sqlMap>
